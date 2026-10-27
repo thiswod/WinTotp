@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsService>true</UseWindowsService>
+    <ApplicationIcon />
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <UserSecretsId>dotnet-WinTotp.WindowsClient-098b18c0-052b-4ed1-9ac6-f7b44ad35616</UserSecretsId>
+    <RootNamespace>WinTotp.WindowsClient</RootNamespace>
+    <AssemblyName>WinTotp.WindowsClient</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.1" />
+    <PackageReference Include="QRCoder" Version="1.6.0" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="8.0.1" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\publish\credential-provider\WinTotp.CredentialProvider.dll" Condition="Exists('..\..\publish\credential-provider\WinTotp.CredentialProvider.dll')">
+      <Link>credential-provider\WinTotp.CredentialProvider.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinTotp.Shared\WinTotp.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

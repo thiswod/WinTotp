@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/WinTotp.Shared/WinTotp.Shared.csproj" />
+    <Project Path="src/WinTotp.WindowsClient/WinTotp.WindowsClient.csproj" />
+  </Folder>
+</Solution>
