@@ -32,12 +32,33 @@ if (-not (git -C $Root tag -l $Tag)) {
     if ($LASTEXITCODE -ne 0) { throw 'git push tag failed' }
 }
 
-$existing = gh release view $Tag --repo $Repo 2>$null
-if ($LASTEXITCODE -eq 0) {
+$prevEap2 = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
+$null = gh release view $Tag --repo $Repo 2>&1
+$releaseExists = ($LASTEXITCODE -eq 0)
+$ErrorActionPreference = $prevEap2
+
+# Prefer freshly built notes (rebuild may have overwritten); patch changelog if missing
+$notesText = [System.IO.File]::ReadAllText($NotesPath)
+if ($notesText -notmatch '本版更新') {
+    $tpl = Join-Path $PSScriptRoot 'RELEASE_NOTES.template.md'
+    if (Test-Path $tpl) {
+        $Utf8 = New-Object System.Text.UTF8Encoding $false
+        $cpBuilt = @()
+        foreach ($a in @('x64','x86','arm64')) {
+            if (Test-Path (Join-Path $Root "publish\credential-provider\$a\WinTotp.CredentialProvider.dll")) { $cpBuilt += $a }
+        }
+        $notes = [System.IO.File]::ReadAllText($tpl, $Utf8)
+        $cpAssets = ($cpBuilt | ForEach-Object { "- ``WinTotp.CredentialProvider-v$Version-$_.zip``" }) -join "`n"
+        if (-not $cpAssets) { $cpAssets = '- (none)' }
+        $notes = $notes.Replace('{{VERSION}}', $Version).Replace('{{CP_ARCHS}}', ($(if ($cpBuilt) { $cpBuilt -join ', ' } else { '(none)' }))).Replace('{{CP_ASSETS}}', $cpAssets)
+        [System.IO.File]::WriteAllText($NotesPath, $notes, $Utf8)
+    }
+}
+
+if ($releaseExists) {
     Write-Host "Updating existing release $Tag ..."
     gh release edit $Tag --repo $Repo --notes-file $NotesPath --title "WinTotp $Tag"
-    # Remove legacy ambiguous asset if present
-    gh release delete-asset $Tag "WinTotp-$Tag-win-x64.zip" --repo $Repo --yes 2>$null
     gh release upload $Tag ($zips.FullName) --repo $Repo --clobber
 } else {
     Write-Host "Creating release $Tag ..."

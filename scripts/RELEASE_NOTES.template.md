@@ -2,6 +2,11 @@
 
 Windows 本机 Authenticator TOTP 登录（Credential Provider）。
 
+### 本版更新
+- 修复「登录组件」页服务按钮过多时底部按钮被挤出窗口的问题
+- 文档改为本机 Windows 使用说明（虚拟机仅作可选测试建议）
+- 多架构发布包：`win-x64` / `win-x86` / `win-arm64` × 依赖 .NET（fd）/ 独立运行（sc）
+
 ### 客户端包怎么选
 
 | 文件后缀 | 含义 |
