@@ -30,35 +30,54 @@ WinTotp.CredentialProvider（登录磁贴 TR）
 | `src/WinTotp.WindowsClient` | 配置 GUI（验证器 / 登录组件 / 日志）+ 开机服务 |
 | `src/WinTotp.CredentialProvider` | 原生登录组件（C++ COM DLL） |
 
+## 下载
+
+Release：[github.com/thiswod/WinTotp/releases](https://github.com/thiswod/WinTotp/releases)
+
+| 后缀 | 说明 |
+|------|------|
+| `*-fd.zip` | **依赖 .NET 8**：需 [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) |
+| `*-sc.zip` | **独立运行**：自带运行时，体积更大 |
+
+架构：`win-x64`（推荐）/ `win-x86` / `win-arm64`。登录组件 DLL 须与系统架构一致。
+
 ## 快速开始
 
-### 1. 编译 Credential Provider
+### 从源码编译
 
-需要 VS/Build Tools（MSVC + Windows SDK）。
+**Credential Provider**（需 VS/Build Tools：MSVC + Windows SDK）：
 
 ```bat
 cd src\WinTotp.CredentialProvider
 _build_now.bat
 ```
 
-产物：`publish\credential-provider\WinTotp.CredentialProvider.dll`（静态 CRT，无需再装 VC++ 运行库）
+产物：`publish\credential-provider\WinTotp.CredentialProvider.dll`（静态 CRT）
 
-### 2. Windows 客户端
+**Windows 客户端**：
 
 ```powershell
 cd src\WinTotp.WindowsClient
 dotnet run
 ```
 
+一键打全量发布包（x64/x86/arm64 × fd/sc）：
+
+```powershell
+.\scripts\build-release-packages.ps1
+```
+
+### 使用
+
 1. **管理员**运行；在「验证器」页扫码绑定（用户默认当前账户）  
 2. 「登录组件」页点 **启用登录**（填写当前 Windows 密码；无密码留空）  
 3. 注销 → **登录选项** → 蓝色 **TR** → 输入 6 位码  
-4. **先做虚拟机快照**；Hyper-V 请用**基本会话**测登录界面  
 
 服务模式：`WinTotp.WindowsClient.exe --service`
 
 ## 安全提示
 
-- 推荐开启 **BitLocker（TPM+PIN）**  
-- 手机/密钥丢失时用快照或恢复介质；不要依赖未知的静态密码  
+- 本软件用于**本机 Windows 登录**；首次试用建议先在测试机验证，确认可登录后再装生产机  
+- 推荐开启 **BitLocker（TPM+PIN）**；手机/密钥丢失时用恢复介质，勿依赖未知静态密码  
 - 已启用后若要换 DLL：先「卸载」再「启用登录」  
+- 配置目录：`%ProgramData%\WinTotp\`

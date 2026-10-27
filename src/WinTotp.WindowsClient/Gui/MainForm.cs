@@ -79,7 +79,8 @@ namespace WinTotp.WindowsClient.Gui
                 var user = txtTargetUser.Text.Trim();
                 var warn = MessageBox.Show(this,
                     "启用后不会改 Windows 密码。\n" +
-                    "请准备账户「" + user + "」的当前密码（无密码留空）。\n\n建议先做虚拟机快照。继续？",
+                    "请准备账户「" + user + "」的当前密码（无密码留空）。\n\n" +
+                    "请确认验证器已绑定且可生成 6 位码；系统「密码」登录仍可用作逃生。继续？",
                     "WinTotp", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (warn != DialogResult.Yes)
                     return;
@@ -117,8 +118,7 @@ namespace WinTotp.WindowsClient.Gui
                 }
 
                 MessageBox.Show(this,
-                    "已启用。\n\n注销 → 登录选项 → TR → 输入验证器 6 位。\n" +
-                    "（Hyper-V 请用基本会话）",
+                    "已启用。\n\n注销 → 登录选项 → TR → 输入验证器 6 位。",
                     "WinTotp", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -344,8 +344,8 @@ namespace WinTotp.WindowsClient.Gui
                 if (cpOn)
                 {
                     lblServiceStatus.Text = running
-                        ? "已启用 · 服务运行中 · 登录选项 → TR → 输入 6 位"
-                        : "已启用 · 服务未运行（可点「启动服务」同步密钥）";
+                        ? "已启用 · 服务运行中 · 注销后选 TR 输入 6 位"
+                        : "已启用 · 服务未运行（可点「启动服务」）";
                     lblServiceStatus.ForeColor = Color.ForestGreen;
                 }
                 else if (!cpDll)

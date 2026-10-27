@@ -114,17 +114,16 @@ namespace WinTotp.WindowsClient.Gui
             loginLayout.Controls.Add(configGrid, 0, 0);
             loginLayout.Controls.Add(lblServiceStatus, 0, 1);
             loginLayout.Controls.Add(bootButtons, 0, 2);
-            loginLayout.Controls.Add(sessionPanel, 0, 3);
             loginLayout.AutoSize = true;
             loginLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            loginLayout.Dock = DockStyle.Top;
+            loginLayout.Dock = DockStyle.Fill;
             loginLayout.Name = "loginLayout";
-            loginLayout.RowCount = 4;
+            loginLayout.Padding = new Padding(2, 0, 2, 0);
+            loginLayout.RowCount = 3;
             loginLayout.RowStyles.Add(new RowStyle());
             loginLayout.RowStyles.Add(new RowStyle());
             loginLayout.RowStyles.Add(new RowStyle());
-            loginLayout.RowStyles.Add(new RowStyle());
-            loginLayout.Size = new Size(472, 330);
+            loginLayout.Size = new Size(472, 300);
             loginLayout.TabIndex = 0;
             // 
             // configGrid
@@ -208,8 +207,8 @@ namespace WinTotp.WindowsClient.Gui
             lblServiceStatus.AutoSize = true;
             lblServiceStatus.ForeColor = Color.DimGray;
             lblServiceStatus.Location = new Point(0, 86);
-            lblServiceStatus.Margin = new Padding(0, 8, 0, 4);
-            lblServiceStatus.MaximumSize = new Size(420, 0);
+            lblServiceStatus.Margin = new Padding(0, 6, 0, 6);
+            lblServiceStatus.MaximumSize = new Size(448, 0);
             lblServiceStatus.Name = "lblServiceStatus";
             lblServiceStatus.Size = new Size(56, 17);
             lblServiceStatus.TabIndex = 1;
@@ -224,21 +223,24 @@ namespace WinTotp.WindowsClient.Gui
             bootButtons.Controls.Add(btnStartService);
             bootButtons.Controls.Add(btnStopService);
             bootButtons.Controls.Add(btnUninstallService);
-            bootButtons.Dock = DockStyle.Top;
+            bootButtons.Controls.Add(btnOpenConfigDir);
+            bootButtons.Controls.Add(btnRefreshService);
+            bootButtons.Dock = DockStyle.Fill;
             bootButtons.Location = new Point(0, 111);
-            bootButtons.Margin = new Padding(0, 0, 0, 8);
+            bootButtons.Margin = new Padding(0);
             bootButtons.Name = "bootButtons";
-            bootButtons.Size = new Size(472, 82);
+            bootButtons.Size = new Size(472, 120);
             bootButtons.TabIndex = 2;
+            bootButtons.WrapContents = true;
             // 
             // btnInstallCp
             // 
             btnInstallCp.AutoSize = true;
             btnInstallCp.Location = new Point(0, 0);
-            btnInstallCp.Margin = new Padding(0, 0, 8, 4);
+            btnInstallCp.Margin = new Padding(0, 0, 6, 6);
             btnInstallCp.Name = "btnInstallCp";
-            btnInstallCp.Padding = new Padding(12, 5, 12, 5);
-            btnInstallCp.Size = new Size(90, 37);
+            btnInstallCp.Padding = new Padding(10, 4, 10, 4);
+            btnInstallCp.Size = new Size(90, 33);
             btnInstallCp.TabIndex = 0;
             btnInstallCp.Text = "启用登录";
             btnInstallCp.UseVisualStyleBackColor = true;
@@ -248,10 +250,10 @@ namespace WinTotp.WindowsClient.Gui
             // 
             btnUninstallCp.AutoSize = true;
             btnUninstallCp.Location = new Point(98, 0);
-            btnUninstallCp.Margin = new Padding(0, 0, 8, 4);
+            btnUninstallCp.Margin = new Padding(0, 0, 6, 6);
             btnUninstallCp.Name = "btnUninstallCp";
-            btnUninstallCp.Padding = new Padding(10, 5, 10, 5);
-            btnUninstallCp.Size = new Size(75, 37);
+            btnUninstallCp.Padding = new Padding(8, 4, 8, 4);
+            btnUninstallCp.Size = new Size(75, 33);
             btnUninstallCp.TabIndex = 1;
             btnUninstallCp.Text = "卸载";
             btnUninstallCp.UseVisualStyleBackColor = true;
@@ -261,10 +263,10 @@ namespace WinTotp.WindowsClient.Gui
             // 
             btnDiagnoseCp.AutoSize = true;
             btnDiagnoseCp.Location = new Point(181, 0);
-            btnDiagnoseCp.Margin = new Padding(0, 0, 16, 4);
+            btnDiagnoseCp.Margin = new Padding(0, 0, 12, 6);
             btnDiagnoseCp.Name = "btnDiagnoseCp";
-            btnDiagnoseCp.Padding = new Padding(10, 5, 10, 5);
-            btnDiagnoseCp.Size = new Size(75, 37);
+            btnDiagnoseCp.Padding = new Padding(8, 4, 8, 4);
+            btnDiagnoseCp.Size = new Size(75, 33);
             btnDiagnoseCp.TabIndex = 2;
             btnDiagnoseCp.Text = "诊断";
             btnDiagnoseCp.UseVisualStyleBackColor = true;
@@ -274,10 +276,10 @@ namespace WinTotp.WindowsClient.Gui
             // 
             btnStartService.AutoSize = true;
             btnStartService.Location = new Point(272, 0);
-            btnStartService.Margin = new Padding(0, 0, 8, 4);
+            btnStartService.Margin = new Padding(0, 0, 6, 6);
             btnStartService.Name = "btnStartService";
-            btnStartService.Padding = new Padding(8, 5, 8, 5);
-            btnStartService.Size = new Size(82, 37);
+            btnStartService.Padding = new Padding(8, 4, 8, 4);
+            btnStartService.Size = new Size(82, 33);
             btnStartService.TabIndex = 3;
             btnStartService.Text = "启动服务";
             btnStartService.UseVisualStyleBackColor = true;
@@ -287,10 +289,10 @@ namespace WinTotp.WindowsClient.Gui
             // 
             btnStopService.AutoSize = true;
             btnStopService.Location = new Point(362, 0);
-            btnStopService.Margin = new Padding(0, 0, 8, 4);
+            btnStopService.Margin = new Padding(0, 0, 6, 6);
             btnStopService.Name = "btnStopService";
-            btnStopService.Padding = new Padding(8, 5, 8, 5);
-            btnStopService.Size = new Size(82, 37);
+            btnStopService.Padding = new Padding(8, 4, 8, 4);
+            btnStopService.Size = new Size(82, 33);
             btnStopService.TabIndex = 4;
             btnStopService.Text = "停止服务";
             btnStopService.UseVisualStyleBackColor = true;
@@ -299,35 +301,34 @@ namespace WinTotp.WindowsClient.Gui
             // btnUninstallService
             // 
             btnUninstallService.AutoSize = true;
-            btnUninstallService.Location = new Point(0, 41);
-            btnUninstallService.Margin = new Padding(0, 0, 0, 4);
+            btnUninstallService.Location = new Point(0, 39);
+            btnUninstallService.Margin = new Padding(0, 0, 6, 6);
             btnUninstallService.Name = "btnUninstallService";
-            btnUninstallService.Padding = new Padding(8, 5, 8, 5);
-            btnUninstallService.Size = new Size(82, 37);
+            btnUninstallService.Padding = new Padding(8, 4, 8, 4);
+            btnUninstallService.Size = new Size(82, 33);
             btnUninstallService.TabIndex = 5;
             btnUninstallService.Text = "卸载服务";
             btnUninstallService.UseVisualStyleBackColor = true;
             btnUninstallService.Click += btnUninstallService_Click;
             // 
-            // sessionPanel
+            // sessionPanel (unused host; buttons live in bootButtons)
             // 
             sessionPanel.AutoSize = true;
-            sessionPanel.Controls.Add(btnOpenConfigDir);
-            sessionPanel.Controls.Add(btnRefreshService);
-            sessionPanel.Dock = DockStyle.Top;
-            sessionPanel.Location = new Point(3, 204);
+            sessionPanel.Location = new Point(0, 0);
             sessionPanel.Name = "sessionPanel";
-            sessionPanel.Size = new Size(466, 35);
+            sessionPanel.Size = new Size(0, 0);
             sessionPanel.TabIndex = 3;
+            sessionPanel.Visible = false;
             // 
             // btnOpenConfigDir
             // 
             btnOpenConfigDir.AutoSize = true;
-            btnOpenConfigDir.FlatStyle = FlatStyle.Flat;
-            btnOpenConfigDir.Location = new Point(3, 3);
+            btnOpenConfigDir.Location = new Point(88, 39);
+            btnOpenConfigDir.Margin = new Padding(0, 0, 6, 6);
             btnOpenConfigDir.Name = "btnOpenConfigDir";
-            btnOpenConfigDir.Size = new Size(75, 29);
-            btnOpenConfigDir.TabIndex = 0;
+            btnOpenConfigDir.Padding = new Padding(8, 4, 8, 4);
+            btnOpenConfigDir.Size = new Size(82, 33);
+            btnOpenConfigDir.TabIndex = 6;
             btnOpenConfigDir.Text = "配置目录";
             btnOpenConfigDir.UseVisualStyleBackColor = true;
             btnOpenConfigDir.Click += btnOpenConfigDir_Click;
@@ -335,12 +336,12 @@ namespace WinTotp.WindowsClient.Gui
             // btnRefreshService
             // 
             btnRefreshService.AutoSize = true;
-            btnRefreshService.FlatStyle = FlatStyle.Flat;
-            btnRefreshService.Location = new Point(89, 3);
-            btnRefreshService.Margin = new Padding(8, 3, 3, 3);
+            btnRefreshService.Location = new Point(176, 39);
+            btnRefreshService.Margin = new Padding(0, 0, 0, 6);
             btnRefreshService.Name = "btnRefreshService";
-            btnRefreshService.Size = new Size(75, 29);
-            btnRefreshService.TabIndex = 1;
+            btnRefreshService.Padding = new Padding(8, 4, 8, 4);
+            btnRefreshService.Size = new Size(60, 33);
+            btnRefreshService.TabIndex = 7;
             btnRefreshService.Text = "刷新";
             btnRefreshService.UseVisualStyleBackColor = true;
             btnRefreshService.Click += btnRefreshService_Click;
@@ -465,12 +466,12 @@ namespace WinTotp.WindowsClient.Gui
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(460, 268);
+            ClientSize = new Size(460, 318);
             Controls.Add(tabs);
             Font = new Font("Microsoft YaHei UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-            MinimumSize = new Size(440, 250);
+            MinimumSize = new Size(440, 300);
             Name = "MainForm";
             Padding = new Padding(8);
             StartPosition = FormStartPosition.CenterScreen;

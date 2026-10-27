@@ -188,7 +188,7 @@ public static class CredentialProviderInstaller
 
         sb.AppendLine();
         sb.AppendLine("登录界面操作：点「登录选项」，应出现蓝色 TR 图标（WinTotp）。");
-        sb.AppendLine("若没有图标，看 %ProgramData%\\WinTotp\\cp-debug.log；Hyper-V 请用基本会话。");
+        sb.AppendLine("若没有图标，查看 %ProgramData%\\WinTotp\\cp-debug.log。");
         return sb.ToString();
     }
 
